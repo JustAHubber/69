@@ -49,6 +49,7 @@ Seeing permissions = ls -all
 Seeing current Dir = pwd
 Remove and Move = rm (file), mv (file)
 Seeing current user = whoami
+Finding flags = find / -iname HC{
 
 
 
